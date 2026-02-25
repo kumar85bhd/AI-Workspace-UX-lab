@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { UXProfileName, uxProfiles, UXProfileConfig } from "../config/uxProfiles";
 
 interface UXProfileContextType {
@@ -15,6 +15,14 @@ export const UXProfileProvider = ({ children }: { children: ReactNode }) => {
   const [activeProfileName, setActiveProfileName] = useState<UXProfileName>("Clean Core");
   const [isDarkMode, setIsDarkMode] = useState(true);
 
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDarkMode]);
+
   const activeProfile = uxProfiles[activeProfileName];
 
   return (
@@ -27,10 +35,8 @@ export const UXProfileProvider = ({ children }: { children: ReactNode }) => {
         toggleDarkMode: () => setIsDarkMode((prev) => !prev),
       }}
     >
-      <div className={isDarkMode ? "dark" : ""}>
-        <div className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 transition-colors duration-300">
-          {children}
-        </div>
+      <div className="min-h-screen transition-colors duration-300">
+        {children}
       </div>
     </UXProfileContext.Provider>
   );
