@@ -1,0 +1,5 @@
+{
+  "name": "UX Profile Engine",
+  "description": "A centralized UX Profile system supporting 7 named visual behavior presets, switchable at runtime.",
+  "requestFramePermissions": []
+}
